@@ -1,9 +1,12 @@
 #include <iostream>
 #include <unordered_map>
 #include <list>
+#include <chrono>
+#include <thread>
 
 #include "astronauta.h"
 #include "voo.h"
+
 
 using std::cin; 
 using std::cout;
@@ -22,6 +25,7 @@ void clearScreen() {
 }
 
 void pauseScreen() {
+    std::this_thread::sleep_for(std::chrono::seconds(2));
     cout << "\nPRESSIONE ENTER PARA VOLTAR AO MENU" << endl;
     cin.ignore();
     clearScreen();
@@ -170,7 +174,6 @@ void listarVoos() {
             for (const string& cpf : voo->getPassageiros()) {
                 cout << "\n- " << astronautas[cpf]->getNome() << ";";
             }
-            cout << "\n";
         }
         cout << "\n";
     }
@@ -184,6 +187,7 @@ void listarVoos() {
                 cout << "\n- " << astronautas[cpf]->getNome() << ";";
             }
         }
+        cout << "\n";
     }
 
     cout << "VOOS FINALIZADOS:" << endl;
@@ -192,10 +196,11 @@ void listarVoos() {
         if (voo->getFinalizado()) {
             cout << "Voo " << voo->getCodigo() << " com astronautas: ";
             for (const string& cpf : voo->getPassageiros()) {
-                cout << "\n- " << astronautas[cpf]->getNome() << ";";
+                cout << "\n- " << astronautas[cpf]->getNome() << ";" << endl;
             }
             cout << " - " << (voo->getSucesso() ? "Sucesso" : "Falha") << endl;
         }
+        cout << "\n";
     }
     pauseScreen();
 }
